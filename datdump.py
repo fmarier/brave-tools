@@ -68,7 +68,8 @@ def parse_hashset(data, size, group_first_parties):
                 pos += length
                 (value, length) = read_value(data[pos:])
                 pos += length
-                first_parties[key] = value
+                sorted_value = sorted(value.split(","))
+                first_parties[key] = ",".join(sorted_value)
             else:
                 (value, length) = read_value(data[pos:])
                 pos += length

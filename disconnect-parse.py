@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- mode: python -*-
 #
+# Parser for the Disconnect tracking protection list:
+#  https://github.com/disconnectme/disconnect-tracking-protection/blob/master/services.json
+#
 # WARNING WARNING WARNING
 #
 # This parser doesn't have any error checking, do not use it with

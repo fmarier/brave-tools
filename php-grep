@@ -1,0 +1,20 @@
+#!/bin/sh
+# All regexps are from https://grepbugs.com/browse
+#
+# The following ones are missing due to being hard to shell-escape:
+#
+#if\s?\(\s?.*\s?(?<!\!)(?<!=)(?<!<)(?<!>)=(?!=)\s?('|").*('|")\s?\)
+#[^a-zA-Z_]header\s?(\(|'|"|$).+\$.+
+#_SERVER\[\s*('|")HTTP_HOST('|")\s*\]
+#require\s?(\(|'|"|$).*\\$.*$
+#require_once\s?(\\(|'|"|$).*\\$.*$
+#include\s?(\(|'|"|$).*\\$.*$
+#include_once\s?(\(|'|"|$).*\\$.*$
+#^.*\`.*\`.*$
+
+for pattern in '(echo(\s*\\()?|(print(_r)?|exit|die|printf|vprintf|trigger_error|user_error|odbc_result_all|ovrimos_result_all|ifx_htmltbl_result)\s*\\()\s*[^;]*\$_(GET|POST|REQUEST|SERVER|COOKIE)' '(echo|print|print_r|exit|die|printf|vprintf).*?\s*\$_((POST|GET)\[.*?\]|SERVER\[.?(REQUEST_URI|QUERY_STRING))' '\.\=.*?\s*\$_((POST|GET)\[.*?\]|SERVER\[.?(REQUEST_URI|QUERY_STRING))' 'md5\s?\\(' 'CRYPT_STD_DES|CRYPT_EXT_DES|CRYPT_MD5' '\"\ *(S|s)(E|e)(L|l)(E|e)(C|c)(T|t)[^"]*"\ *\.\ *\w[^.]*\.\ *\"' 'mysql_query\s?\\(|mysqli_query\s?\\(|pg_execute\s?\\(|pg_insert\s?\\(|pg_query\s?\\(|pg_select\s?\\(|pg_update\s?\\(|sqlite_query\s?\\(|msql_query\s?\\(|mssql_query\s?\\(|odbc_exec\s?\\(|fbsql_query\s?\\(|sybase_query\s?\\(|ibase_query\s?\\(|dbx_query\s?\\(|ingres_query\s?\\(|ifx_query\s?\\(|oci_parse\s?\\(|sqlsrv_query\s?\\(|maxdb_query\s?\\(|db2_exec\s?\\(' 'preg_replace\s?\\(' '\$HTTP_(SERVER|GET|POST|SESSION|ENV|COOKIE)_VARS|\$HTTP_POST_FILES' 'unserialize\s?\\(' 'mt_rand\s?\\(|srand\s?\\(' 'uniqid\s?\\(' 'phpinfo\s?\\(|show_source\s?\\(|highlight_file\s?\\(' 'mcrypt_cbc\s?\\(|mcrypt_cfb\s?\\(|mcrypt_ecb\s?\\(|mcrypt_ofb\s?\\(|mcrypt_encrypt\s?\\(' 'mcrypt_generic_end\s?\\(' 'shell_exec\s?\\(' 'system\s?\\(' '(?<!curl_)exec\s?\\(' 'popen\s?\\(' 'passthru\s?\\(' 'proc_open\s?\\(' 'pcntl_exec\s?\\(' 'expect_popen\s?\\(' 'eval\s?\\(' 'assert\s?\\(' 'create_function\s?\\(' 'register_shutdown_function\s?\\(' 'register_tick_function\s?\\(' 'dl\s?\\(' ; do
+    #echo ">> $pattern"
+    #echo
+    grep -r "$pattern" $*
+    #echo
+done

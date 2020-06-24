@@ -5,10 +5,10 @@
 #
 #if\s?\(\s?.*\s?(?<!\!)(?<!=)(?<!<)(?<!>)=(?!=)\s?('|").*('|")\s?\)
 
-for pattern in '\.(html|before|after|append|prepend|appendTo|prependTo)\s*\\(' 'ws:\/\/' 'navigator.geolocation.getCurrentPosition' '\.postMessage\s?\\(.*\,.*\*.*\\)' 'location\.replace' 'localStorage\.' 'Math\.random\s?\\(' '\.innerHTML' 'eval\s?\\(' 'document\.write'
+for pattern in '\.(html|before|after|append|prepend|appendTo|prependTo)\s*\(' 'ws:\/\/' 'navigator.geolocation.getCurrentPosition' '\.postMessage\s?\(.*\,.*\*.*\)' 'location\.replace' 'localStorage\.' 'Math\.random\s?\(' '\.innerHTML' 'eval\s?\(' 'document\.write'
 do
     #echo ">> $pattern"
     #echo
-    grep -r "$pattern" $*
+    egrep -r "$pattern" $*
     #echo
 done
